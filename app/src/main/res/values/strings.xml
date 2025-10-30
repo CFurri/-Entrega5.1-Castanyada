@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">EntregaHalloween5.1</string>
+    <string name="encerts_format">Encerts: %d</string>
+    <string name="errades_format">Errades: %d</string>
+</resources>
