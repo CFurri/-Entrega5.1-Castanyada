@@ -40,10 +40,10 @@ class Joc1Activity : AppCompatActivity() {
     // Defineix les 16 imatges úniques per a les parelles
     // ASSEGURA'T QUE AQUESTS DRAWABLES EXISTEIXIN A LA TEVA CARPETA 'res/drawable'!
     private val drawableIds = listOf(
-        R.drawable.img_a, R.drawable.img_b, /*R.drawable.img_c, R.drawable.img_d,
+        R.drawable.img_a, R.drawable.img_b, R.drawable.img_c, R.drawable.img_d,
         R.drawable.img_e, R.drawable.img_f, R.drawable.img_g, R.drawable.img_h,
         R.drawable.img_i, R.drawable.img_j, R.drawable.img_k, R.drawable.img_l,
-        R.drawable.img_m, R.drawable.img_n, R.drawable.img_o, R.drawable.img_p*/
+        R.drawable.img_m, R.drawable.img_n, R.drawable.img_o, R.drawable.img_p
     )
 
     private val cardBackId = R.drawable.card_back // Imatge del revers de la carta

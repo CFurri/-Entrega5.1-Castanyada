@@ -14,8 +14,6 @@ import com.google.android.material.textfield.TextInputEditText
 
 class MainActivity : AppCompatActivity() {
     private lateinit var nom : EditText
-    private lateinit var btnGoToJoc1 : Button
-    private lateinit var btnGoToJoc2 : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,10 +28,6 @@ class MainActivity : AppCompatActivity() {
 
         // Initializing Views
         nom.findViewById<EditText>(R.id.nomInput)
-
-        //Initializing Buttons
-        btnGoToJoc1.findViewById<Button>(R.id.btnJoc1)
-        btnGoToJoc2.findViewById<Button>(R.id.btnJoc2)
     }
 
     fun goToJoc1(view: View){
@@ -47,6 +41,4 @@ class MainActivity : AppCompatActivity() {
         var i = Intent(MainActivity@this, Joc2Activity::class.java)
         startActivity(i)
     }
-
-
 }
