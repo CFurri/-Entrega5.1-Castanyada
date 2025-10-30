@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         Log.i("EntregaHalloween5.1","MainActivity")
 
         // Initializing Views
-        nom.findViewById<EditText>(R.id.nomInput)
+        nom = findViewById<EditText>(R.id.nomInput)
     }
 
     fun goToJoc1(view: View){

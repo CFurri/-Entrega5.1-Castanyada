@@ -12,11 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 // Model de dades per a cada carta
-data class Card(
-    val imageResId: Int, // ID del drawable que representa la imatge
-    var isFlipped: Boolean = false, // Estat: visible (true) o amagada (false)
-    var isMatched: Boolean = false // Estat: parella trobada (true)
-)
+
 
 class Joc1Activity : AppCompatActivity() {
 
@@ -91,7 +87,7 @@ class Joc1Activity : AppCompatActivity() {
                 width = 0 // Necessari per columnWeight
                 height = resources.getDimensionPixelSize(R.dimen.card_height) // Defineix una alçada per consistència
                 columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f) // 1f = columnWeight
-                rowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f) // Fes que les files també tinguin pes, si cal (ajustar segons disseny)
+                rowSpec = GridLayout.spec(GridLayout.UNDEFINED) // Fes que les files també tinguin pes, si cal (ajustar segons disseny)
                 setMargins(4, 4, 4, 4) // Petits marges entre cartes
             }
             layoutParams = params
@@ -192,3 +188,8 @@ class Joc1Activity : AppCompatActivity() {
         // startActivity(intent)
     }
 }
+data class Card(
+    val imageResId: Int, // ID del drawable que representa la imatge
+    var isFlipped: Boolean = false, // Estat: visible (true) o amagada (false)
+    var isMatched: Boolean = false // Estat: parella trobada (true)
+)
