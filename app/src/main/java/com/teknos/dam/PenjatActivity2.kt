@@ -10,18 +10,19 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.toColorInt
+import com.teknos.dam.entities.Jugador
+import com.teknos.dam.entities.PartidaPenjat
 import com.teknos.dam.singletons.App_Singleton
 
 class PenjatActivity2 : AppCompatActivity() {
+    private lateinit var partida : PartidaPenjat
     lateinit var tv_jugador: TextView
-    lateinit var tv_paraula: TextView
     lateinit var tv_pista : TextView
     lateinit var btnComprovar : Button
     lateinit var tvLletresUtilitzades : TextView
     lateinit var provarLletraInput : EditText
-    private var lletresUtilitzadesString : String = ""
     lateinit var llistaLletresComprovades : TextView
-    private val paraulaSecreta = App_Singleton.getInstance().getJugador().paraula.uppercase()
     private lateinit var pecesPenjat: List<ImageView>
     private lateinit var line_vertical1 : ImageView
     private lateinit var line_horitzontal : ImageView
@@ -31,7 +32,6 @@ class PenjatActivity2 : AppCompatActivity() {
     private lateinit var braços : ImageView
     private lateinit var cama1 : ImageView
     private lateinit var cama2 : ImageView
-    private var errorsActuals : Int = 0
     private val lletresEnPantalla = mutableListOf<TextView>()
     lateinit var tvMissatgesEstat : TextView
     lateinit var btnSortir : Button
@@ -44,22 +44,9 @@ class PenjatActivity2 : AppCompatActivity() {
 
         Log.i("EntregaHalloween5.1", "PenjatActivity2:onCreate")
 
-        //Part per passar paràmetres de l'objecte
-        tv_jugador = findViewById(R.id.tvJugador)
-        tv_pista = findViewById(R.id.tvPista)
         val singleton = App_Singleton.getInstance()
         val jugador = singleton.getJugador()
-        tv_jugador.text = jugador.name
-        tv_pista.text = jugador.pista
-
-
-        //Inicialització de les Views pel penjat
-        tvLletresUtilitzades = findViewById(R.id.tvLletresUtilitzades)
-        btnComprovar = findViewById(R.id.btnComprovar)
-        provarLletraInput = findViewById(R.id.provarLletraInput)
-        llistaLletresComprovades = findViewById(R.id.llistaLletresComprovades)
-        btnReset = findViewById(R.id.btnReset)
-        btnSortir = findViewById(R.id.btnSortir)
+        val paraulaDelJoc = jugador.paraula.uppercase()
 
         //Imatges i gestió d'aquestes
         line_vertical1 = findViewById(R.id.vertical1)
@@ -81,17 +68,36 @@ class PenjatActivity2 : AppCompatActivity() {
             cama1,
             cama2
         )
+
+        val maxErrorsJoc = pecesPenjat.size
+
+        //Amaguem les imatges
         for (peça in pecesPenjat) {
             peça.visibility = View.INVISIBLE
         }
 
+        partida = PartidaPenjat(paraulaDelJoc, maxErrorsJoc)
+
+        //Part per passar paràmetres de l'objecte
+        tv_jugador = findViewById(R.id.tvJugador)
+        tv_pista = findViewById(R.id.tvPista)
+        tv_jugador.text = jugador.name
+        tv_pista.text = jugador.pista
+
+        //Inicialització de les Views pel penjat
+        tvLletresUtilitzades = findViewById(R.id.tvLletresUtilitzades)
+        btnComprovar = findViewById(R.id.btnComprovar)
+        provarLletraInput = findViewById(R.id.provarLletraInput)
+        llistaLletresComprovades = findViewById(R.id.llistaLletresComprovades)
+        btnReset = findViewById(R.id.btnReset)
+        btnSortir = findViewById(R.id.btnSortir)
+
+
         //Gestionant la paraula i les barres que sortiran a sota
-        val paraulaSecreta = jugador.paraula.uppercase()
-        //val longitudParaula = paraulaSecreta.length
         val wordContainer = findViewById<LinearLayout>(R.id.ll_word_container)
 
         //Aquest for l'ha fet la sombra, ombra en català
-        for (i in paraulaSecreta.indices) {
+        for (i in partida.paraulaSecreta.indices) {
             // Crear un nou TextView per a cada lletra
             val tvLletra = TextView(this).apply {
 
@@ -121,23 +127,29 @@ class PenjatActivity2 : AppCompatActivity() {
         val lletraProvada = input.uppercase() //El fem majus i guardem
         provarLletraInput.text.clear() //Netegem el TextEdit
 
-        if(lletresUtilitzadesString.contains(lletraProvada)){
-            tvMissatgesEstat.text = "Lletra '$lletraProvada' ja provada!"
-            return
+        val resultat = partida.comprovarLletra(lletraProvada)
+        //Li afegim un guió (sombra)
+        val lletresOrdenades = partida.lletresUtilitzadesString.toCharArray().sorted().joinToString(" - ")
+        llistaLletresComprovades.text = lletresOrdenades
+
+
+        when (resultat) {
+            1 -> { // ENCERT
+                tvMissatgesEstat.text = "Encert! La lletra '$lletraProvada' hi és."
+                revelarLletres(lletraProvada)
+            }
+            -1 -> { // ERROR
+                tvMissatgesEstat.text = "Error! La lletra '$lletraProvada' no hi és."
+                ensenyarImatge()
+            }
+            0 -> { // DUPLICAT
+                tvMissatgesEstat.text = "Lletra '$lletraProvada' ja provada!"
+            }
         }
-
-        //Afegim a la llista les lletres que es van introduint(TextView)
-        lletresUtilitzadesString += lletraProvada
-        //Li afegim un guió
-        val lletresOrdenades = lletresUtilitzadesString.toCharArray().sorted().joinToString(" - ")
-        llistaLletresComprovades.setText(lletresOrdenades)
-
-        comprovarLletraEnParaula(lletraProvada)
     }
 
     private fun ensenyarImatge(){
-        errorsActuals++
-        val indexRevelar = errorsActuals - 1
+        val indexRevelar = partida.errorsActuals - 1
         if (indexRevelar >= 0 && indexRevelar < pecesPenjat.size) {
             pecesPenjat[indexRevelar].visibility = View.VISIBLE
 
@@ -149,7 +161,7 @@ class PenjatActivity2 : AppCompatActivity() {
     private fun comprovarFinalPartida() {
         // Comprovació derrota
         val maxErrors = pecesPenjat.size
-        if (errorsActuals >= maxErrors) {
+        if (partida.isDerrota) {
             tvMissatgesEstat.text = "HAS PERDUT! El Penjat s'ha completat."
 
             btnComprovar.isEnabled = false
@@ -164,20 +176,11 @@ class PenjatActivity2 : AppCompatActivity() {
         }
     }
 
-    private fun comprovarLletraEnParaula(lletraProvada : String){
-        if(paraulaSecreta.contains(lletraProvada)){
-            tvMissatgesEstat.text = "Encert! La lletra '$lletraProvada' hi és."
-            revelarLletres(lletraProvada)
-        } else {
-            tvMissatgesEstat.text = "Error! La lletra '$lletraProvada' no hi és."
-            ensenyarImatge()
-        }
-    }
 
     private fun revelarLletres(lletraEncertada: String){
         val lletraChar = lletraEncertada.first()
-        for (i in paraulaSecreta.indices){
-            if (paraulaSecreta[i] == lletraChar){
+        for (i in partida.paraulaSecreta.indices){
+            if (partida.paraulaSecreta[i] == lletraChar){
                 lletresEnPantalla[i].text = lletraEncertada
             }
         }
@@ -198,12 +201,12 @@ class PenjatActivity2 : AppCompatActivity() {
     }
 
     fun reiniciarPartida(view:View){
-        errorsActuals = 0
-        lletresUtilitzadesString = ""
-
+        val paraulaDelJoc = partida.paraulaSecreta
+        val maxErrorsJoc = pecesPenjat.size
+        partida = PartidaPenjat(paraulaDelJoc, maxErrorsJoc)
         //Netejar la UI
         tvMissatgesEstat.text = "Joc Reiniciat!"
-        llistaLletresComprovades.setText("")
+        llistaLletresComprovades.text=""
         provarLletraInput.text.clear()
 
         //Amaguem les peces del penjat
