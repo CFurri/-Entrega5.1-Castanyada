@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="JOC DE MEMÒRIA"
+            android:text="JOCS DE CASTANYADA"
             android:textColor="#F6F3F3"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -36,38 +36,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginTop="108dp"
-        android:text="Benvingut als Jocs"
+        android:layout_marginEnd="53dp"
+        android:text="Benvinguts als Jocs!"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/jugadorTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="144dp"
-        android:text="Jugador: "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title2" />
-
-    <EditText
-        android:id="@+id/nomInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="260dp"
-        android:ems="10"
-        android:hint="Nom"
-        android:inputType="text"
-        android:minHeight="48dp"
-        app:layout_constraintStart_toEndOf="@+id/jugadorTitle"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnJoc1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
+        android:layout_marginStart="72dp"
         android:layout_marginBottom="176dp"
         android:onClick="goToJoc1"
         android:text="JOC 1"
@@ -83,7 +63,41 @@
         android:text="JOC 2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintHorizontal_bias="0.558"
         app:layout_constraintStart_toEndOf="@+id/btnJoc1" />
+
+    <TextView
+        android:id="@+id/titolJoc1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="95dp"
+        android:layout_marginBottom="28dp"
+        android:text="Memory"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btnJoc1"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/titolJoc2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="93dp"
+        android:layout_marginBottom="27dp"
+        android:text="El Penjat"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btnJoc2"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="216dp"
+        android:layout_height="474dp"
+        android:layout_marginBottom="148dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/capçalera"
+        app:srcCompat="@drawable/img_m" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

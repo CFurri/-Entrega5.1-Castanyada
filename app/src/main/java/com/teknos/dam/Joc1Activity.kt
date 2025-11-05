@@ -1,6 +1,5 @@
 package com.teknos.dam
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,9 +9,6 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-
-// Model de dades per a cada carta
-
 
 class Joc1Activity : AppCompatActivity() {
 
@@ -27,14 +23,13 @@ class Joc1Activity : AppCompatActivity() {
     private lateinit var buttons: List<ImageButton>
 
     // Lògica del Joc
-    private var flippedCards = mutableListOf<ImageButton>() // Cartes actualment girades (màx. 2)
+    private var flippedCards = mutableListOf<ImageButton>() // Cartes actualment girades
     private var isBusy = false // Bloqueja els clics mentre les cartes es giren/desgiren
     private var encerts = 0
     private var errades = 0
     private val totalPairs = 16 // 32 cartes = 16 parelles
 
     // Defineix les 16 imatges úniques per a les parelles
-    // ASSEGURA'T QUE AQUESTS DRAWABLES EXISTEIXIN A LA TEVA CARPETA 'res/drawable'!
     private val drawableIds = listOf(
         R.drawable.img_a, R.drawable.img_b, R.drawable.img_c, R.drawable.img_d,
         R.drawable.img_e, R.drawable.img_f, R.drawable.img_g, R.drawable.img_h,
@@ -72,7 +67,7 @@ class Joc1Activity : AppCompatActivity() {
             button
         }
 
-        // 2.3 Resetear comptadors
+        // 2.3 Resetejar comptadors
         encerts = 0
         errades = 0
         updateScore()
@@ -164,7 +159,6 @@ class Joc1Activity : AppCompatActivity() {
 
     private fun checkGameEnd() {
         if (encerts == totalPairs) {
-            Toast.makeText(this, "🎉 ENHORABONA! Has guanyat el Joc Memori!", Toast.LENGTH_LONG).show()
             memoryGrid.visibility = View.INVISIBLE // Amaga la graella
         }
     }
@@ -175,10 +169,9 @@ class Joc1Activity : AppCompatActivity() {
         flippedCards.clear()
         isBusy = false
         setupGame()
-        Toast.makeText(this, "Joc Reiniciat!", Toast.LENGTH_SHORT).show()
     }
 
-    // Funció cridada pel botó (necessita android:onClick="sortirJoc" a l'XML)
+    // Funció cridada pel botó
     fun sortirJoc(view: View) {
         // Torna a la Pantalla 1 (l'Activity principal)
         // Utilitzem finish() si aquesta Activity s'ha obert amb startActivity() des de la Pantalla 1

@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EntregaHalloween51">
         <activity
-            android:name=".Joc2Activity"
+            android:name=".PenjatActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".PenjatActivity1"
             android:exported="false" />
         <activity
             android:name=".Joc1Activity"
