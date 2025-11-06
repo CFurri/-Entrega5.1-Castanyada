@@ -37,6 +37,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="120dp"
         android:text="Jugador:"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,6 +48,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="32dp"
         android:text="Pista:"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nomTitle" />
 
@@ -57,6 +59,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="228dp"
         android:text="Lletra que desitges comprovar: "
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -80,6 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="180dp"
         android:layout_marginTop="120dp"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/nomTitle"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -89,6 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="200dp"
         android:layout_marginTop="168dp"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/pistaTitle"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -105,12 +110,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/lletresUtilitzadesTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="356dp"
         android:text="Lletres utilitzades:"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -120,8 +126,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="16dp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/lletresUtilitzadesTitle" />
 
     <LinearLayout
         android:id="@+id/ll_word_container"
@@ -180,7 +187,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="356dp"
-        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintStart_toEndOf="@+id/lletresUtilitzadesTitle"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -244,6 +251,7 @@
         android:layout_marginBottom="84dp"
         android:onClick="sortirPartida"
         android:text="Sortir"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

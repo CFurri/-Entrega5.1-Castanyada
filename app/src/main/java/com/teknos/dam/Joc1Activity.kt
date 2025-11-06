@@ -43,31 +43,31 @@ class Joc1Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_joc1)
 
-        // 1. Inicialitzar Vistes
+        // Inicialitzar Vistes
         memoryGrid = findViewById(R.id.memory_grid)
         tvEncerts = findViewById(R.id.tv_encerts)
         tvErrades = findViewById(R.id.tv_errades)
 
-        // 2. Preparar el Joc
+        // Preparar el Joc
         setupGame()
     }
 
     private fun setupGame() {
-        // 2.1 Crear i Barrejar les cartes
+        // Crear i Barrejar les cartes
         // Dupliquem la llista i la barregem (16 imatges * 2 = 32 cartes)
         val shuffledImageIds = (drawableIds + drawableIds).shuffled()
 
         // Crear els objectes Card amb les imatges assignades i els estats inicials
         cards = shuffledImageIds.map { imageId -> Card(imageId) }
 
-        // 2.2 Crear els botons a la UI i afegir-los al GridLayout
+        // Crear els botons a la UI i afegir-los al GridLayout
         buttons = (0 until 32).map { index ->
             val button = createCardButton(index)
             memoryGrid.addView(button)
             button
         }
 
-        // 2.3 Resetejar comptadors
+        // Resetejar comptadors
         encerts = 0
         errades = 0
         updateScore()
@@ -82,7 +82,7 @@ class Joc1Activity : AppCompatActivity() {
                 width = 0 // Necessari per columnWeight
                 height = resources.getDimensionPixelSize(R.dimen.card_height) // Defineix una alçada per consistència
                 columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f) // 1f = columnWeight
-                rowSpec = GridLayout.spec(GridLayout.UNDEFINED) // Fes que les files també tinguin pes, si cal (ajustar segons disseny)
+                rowSpec = GridLayout.spec(GridLayout.UNDEFINED) // Fa que les files també tinguin pes
                 setMargins(4, 4, 4, 4) // Petits marges entre cartes
             }
             layoutParams = params
@@ -163,7 +163,7 @@ class Joc1Activity : AppCompatActivity() {
         }
     }
 
-    // Funció cridada pel botó (necessita android:onClick="reiniciarJoc" a l'XML)
+    // Funció cridada pel botó
     fun reiniciarJoc(view: View) {
         memoryGrid.removeAllViews() // Elimina els botons antics
         flippedCards.clear()
@@ -173,12 +173,7 @@ class Joc1Activity : AppCompatActivity() {
 
     // Funció cridada pel botó
     fun sortirJoc(view: View) {
-        // Torna a la Pantalla 1 (l'Activity principal)
-        // Utilitzem finish() si aquesta Activity s'ha obert amb startActivity() des de la Pantalla 1
         finish()
-        // Si la Pantalla 1 no és Main, hauries d'usar un Intent:
-        // val intent = Intent(this, PantallaPrincipalActivity::class.java)
-        // startActivity(intent)
     }
 }
 data class Card(
